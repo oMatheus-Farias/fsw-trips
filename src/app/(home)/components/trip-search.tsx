@@ -1,12 +1,13 @@
 "use client";
 
+import Button from "@/components/button";
 import CurrencyInput from "@/components/currency-input";
 import DatePicker from "@/components/date-picker";
 import Input from "@/components/input";
 
 const TripSearch = () => {
   return (
-    <div className="container mx-auto p-5">
+    <div className="container mx-auto p-5 bg-search-background bg-cover bg-center bg-no-repeat">
       <h1 className="text-2xl font-semibold text-primaryDarker text-center">
         Encontre sua próxima <span className="text-primary">viagem!</span>
       </h1>
@@ -22,6 +23,8 @@ const TripSearch = () => {
           />
           <CurrencyInput placeholder="Orçamento" />
         </div>
+
+        <Button>Buscar</Button>
       </div>
     </div>
   );
