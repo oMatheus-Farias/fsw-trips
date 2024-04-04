@@ -1,7 +1,6 @@
 import { prismaClient } from "@/lib/prisma";
-import Image from "next/image";
-import ReactCountryFlag from "react-country-flag";
 import TripHeader from "./components/trip-header";
+import TripReservation from "./components/trip-reservation";
 
 interface TripDetailsPageProps {
   params: {
@@ -27,6 +26,7 @@ const TripDetailsPage = async ({ params }: TripDetailsPageProps) => {
   return (
     <div className="container mx-auto">
       <TripHeader trip={trip} />
+      <TripReservation trip={trip} />
     </div>
   );
 };
