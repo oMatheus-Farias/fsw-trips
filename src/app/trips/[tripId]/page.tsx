@@ -1,6 +1,7 @@
 import { prismaClient } from "@/lib/prisma";
 import TripHeader from "./components/trip-header";
 import TripReservation from "./components/trip-reservation";
+import TripDescription from "./components/trip-description";
 
 interface TripDetailsPageProps {
   params: {
@@ -27,6 +28,7 @@ const TripDetailsPage = async ({ params }: TripDetailsPageProps) => {
     <div className="container mx-auto">
       <TripHeader trip={trip} />
       <TripReservation trip={trip} />
+      <TripDescription description={trip.description} />
     </div>
   );
 };
