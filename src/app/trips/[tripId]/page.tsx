@@ -3,6 +3,7 @@ import TripHeader from "./components/trip-header";
 import TripReservation from "./components/trip-reservation";
 import TripDescription from "./components/trip-description";
 import TripHighlights from "./components/trip-highlights";
+import TripLocation from "./components/trip-location";
 
 interface TripDetailsPageProps {
   params: {
@@ -31,6 +32,10 @@ const TripDetailsPage = async ({ params }: TripDetailsPageProps) => {
       <TripReservation trip={trip} />
       <TripDescription description={trip.description} />
       <TripHighlights highlights={trip.highlights} />
+      <TripLocation
+        location={trip.location}
+        locationDescription={trip.locationDescription}
+      />
     </div>
   );
 };
