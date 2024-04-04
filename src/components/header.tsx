@@ -4,6 +4,7 @@ import { useState } from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { AiOutlineMenu } from "react-icons/ai";
+import Link from "next/link";
 
 const Header = () => {
   const [menuIsOpen, setMenuIsOpen] = useState(false);
@@ -23,14 +24,16 @@ const Header = () => {
 
   return (
     <header className="container mx-auto px-5 h-[93px] flex items-center justify-between">
-      <Image
-        src="/logo.svg"
-        alt="Full Stack Week"
-        height={0}
-        width={0}
-        sizes="100vw"
-        className="h-8 w-[183px]"
-      />
+      <Link href="/">
+        <Image
+          src="/logo.svg"
+          alt="Full Stack Week"
+          height={0}
+          width={0}
+          sizes="100vw"
+          className="h-8 w-[183px]"
+        />
+      </Link>
 
       {status === "unauthenticated" && (
         <button
