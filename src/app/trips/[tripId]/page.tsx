@@ -29,7 +29,11 @@ const TripDetailsPage = async ({ params }: TripDetailsPageProps) => {
   return (
     <div className="container mx-auto">
       <TripHeader trip={trip} />
-      <TripReservation trip={trip} />
+      <TripReservation
+        tripStartDate={trip.startDate}
+        tripEndDate={trip.endDate}
+        maxGuests={trip.maxGuests}
+      />
       <TripDescription description={trip.description} />
       <TripHighlights highlights={trip.highlights} />
       <TripLocation
