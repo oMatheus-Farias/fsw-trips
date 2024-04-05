@@ -33,6 +33,7 @@ const TripDetailsPage = async ({ params }: TripDetailsPageProps) => {
         tripStartDate={trip.startDate}
         tripEndDate={trip.endDate}
         maxGuests={trip.maxGuests}
+        pricePerDay={Number(trip.pricePerDay)}
       />
       <TripDescription description={trip.description} />
       <TripHighlights highlights={trip.highlights} />
