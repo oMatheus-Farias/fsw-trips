@@ -4,8 +4,10 @@ import Button from "@/components/button";
 import { Trip } from "@prisma/client";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import ReactCountryFlag from "react-country-flag";
 
@@ -18,6 +20,10 @@ interface ConfirmationPageProps {
 const ConfirmationPage = ({ params }: ConfirmationPageProps) => {
   const [trip, setTrip] = useState<Trip | null>();
   const [totalPrice, setTotalPrice] = useState<number>(0);
+
+  const router = useRouter();
+
+  const { status } = useSession();
 
   const searchParams = useSearchParams();
 
@@ -37,8 +43,12 @@ const ConfirmationPage = ({ params }: ConfirmationPageProps) => {
       setTotalPrice(totalPrice);
     };
 
+    if (status === "unauthenticated") {
+      return router.push("/");
+    }
+
     fetchTrip();
-  }, []);
+  }, [status]);
 
   const startDate = new Date(searchParams.get("startDate") as string);
   const endDate = new Date(searchParams.get("endDate") as string);
