@@ -10,6 +10,7 @@ import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import ReactCountryFlag from "react-country-flag";
+import { toast } from "react-toastify";
 
 interface ConfirmationPageProps {
   params: {
@@ -23,7 +24,7 @@ const ConfirmationPage = ({ params }: ConfirmationPageProps) => {
 
   const router = useRouter();
 
-  const { status } = useSession();
+  const { status, data } = useSession();
 
   const searchParams = useSearchParams();
 
@@ -62,6 +63,32 @@ const ConfirmationPage = ({ params }: ConfirmationPageProps) => {
   if (!trip) {
     return null;
   }
+
+  const handleBuyClick = async () => {
+    const res = await fetch("http://localhost:3000/api/trips/reservation", {
+      method: "POST",
+      body: JSON.stringify({
+        tripId: params.tripId,
+        startDate: searchParams.get("startDate"),
+        endDate: searchParams.get("endDate"),
+        guests: Number(searchParams.get("guests")),
+        userId: (data?.user as any)?.id,
+        totalPaid: totalPrice,
+      }),
+    });
+
+    if (!res.ok) {
+      return toast.error("Ocorreu um erro ao realizar a reserva!", {
+        position: "bottom-center",
+      });
+    }
+
+    router.push("/");
+
+    toast.success("Reserva realizada com sucesso!", {
+      position: "bottom-center",
+    });
+  };
 
   return (
     <div className="container mx-auto p-5">
@@ -114,7 +141,9 @@ const ConfirmationPage = ({ params }: ConfirmationPageProps) => {
         <h3 className="font-semibold mt-5">Hóspedes</h3>
         <p>{guests} hóspedes</p>
 
-        <Button className="mt-5">Finalizar Compra</Button>
+        <Button className="mt-5" onClick={handleBuyClick}>
+          Finalizar Compra
+        </Button>
       </div>
     </div>
   );
