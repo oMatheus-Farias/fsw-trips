@@ -5,7 +5,6 @@ import { Prisma } from "@prisma/client";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import ReactCountryFlag from "react-country-flag";
 import { toast } from "react-toastify";
 
@@ -13,11 +12,13 @@ interface UserReservationItemProps {
   reservation: Prisma.TripReservationGetPayload<{
     include: { trip: true };
   }>;
+  fetchReservations: () => Promise<void>;
 }
 
-const UserReservationItem = ({ reservation }: UserReservationItemProps) => {
-  const router = useRouter();
-
+const UserReservationItem = ({
+  reservation,
+  fetchReservations,
+}: UserReservationItemProps) => {
   const handleDeleteClick = async (reservationId: string) => {
     try {
       await fetch(
@@ -31,7 +32,7 @@ const UserReservationItem = ({ reservation }: UserReservationItemProps) => {
         position: "bottom-center",
       });
 
-      router.refresh();
+      fetchReservations();
     } catch (error) {
       console.error(error);
       toast.error("Erro ao cancelar a reserva, tente novamente mais tarde.", {

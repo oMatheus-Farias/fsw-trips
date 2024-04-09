@@ -2,11 +2,7 @@ import TripItem from "@/components/trip-item";
 import { prismaClient } from "@/lib/prisma";
 
 const RecommendedTrips = async () => {
-  const trips = await prismaClient.trip.findMany({
-    where: {
-      recommended: true,
-    },
-  });
+  const trips = await prismaClient.trip.findMany({});
 
   return (
     <div className="container mx-auto p-5">
