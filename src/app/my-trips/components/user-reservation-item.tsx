@@ -21,12 +21,9 @@ const UserReservationItem = ({
 }: UserReservationItemProps) => {
   const handleDeleteClick = async (reservationId: string) => {
     try {
-      await fetch(
-        `http://localhost:3000/api/trips/reservation/${reservationId}`,
-        {
-          method: "DELETE",
-        }
-      );
+      await fetch(`/api/trips/reservation/${reservationId}`, {
+        method: "DELETE",
+      });
 
       toast.success("Reserva cancelada com sucesso!", {
         position: "bottom-center",
