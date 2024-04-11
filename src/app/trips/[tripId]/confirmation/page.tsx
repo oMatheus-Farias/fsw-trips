@@ -93,8 +93,6 @@ const ConfirmationPage = ({ params }: ConfirmationPageProps) => {
 
     await strip?.redirectToCheckout({ sessionId });
 
-    // router.push("/");
-
     toast.success("Reserva realizada com sucesso!", {
       position: "bottom-center",
     });
