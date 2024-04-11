@@ -2,6 +2,7 @@
 
 import Button from "@/components/button";
 import { Trip } from "@prisma/client";
+import { loadStripe } from "@stripe/stripe-js";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { useSession } from "next-auth/react";
@@ -65,15 +66,17 @@ const ConfirmationPage = ({ params }: ConfirmationPageProps) => {
   }
 
   const handleBuyClick = async () => {
-    const res = await fetch("http://localhost:3000/api/trips/reservation", {
+    const res = await fetch("http://localhost:3000/api/payment", {
       method: "POST",
       body: JSON.stringify({
         tripId: params.tripId,
         startDate: searchParams.get("startDate"),
         endDate: searchParams.get("endDate"),
         guests: Number(searchParams.get("guests")),
-        userId: (data?.user as any)?.id,
-        totalPaid: totalPrice,
+        totalPrice,
+        coverImage: trip.coverImage,
+        name: trip.name,
+        description: trip.description,
       }),
     });
 
@@ -83,7 +86,13 @@ const ConfirmationPage = ({ params }: ConfirmationPageProps) => {
       });
     }
 
-    router.push("/");
+    const { sessionId } = await res.json();
+
+    const strip = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY!);
+
+    await strip?.redirectToCheckout({ sessionId });
+
+    // router.push("/");
 
     toast.success("Reserva realizada com sucesso!", {
       position: "bottom-center",
