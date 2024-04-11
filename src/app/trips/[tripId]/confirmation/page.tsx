@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import ReactCountryFlag from "react-country-flag";
 import { toast } from "react-toastify";
+import { Suspense } from "react";
 
 interface ConfirmationPageProps {
   params: {
@@ -25,7 +26,7 @@ const ConfirmationPage = ({ params }: ConfirmationPageProps) => {
 
   const router = useRouter();
 
-  const { status, data } = useSession();
+  const { status } = useSession();
 
   const searchParams = useSearchParams();
 
@@ -100,61 +101,63 @@ const ConfirmationPage = ({ params }: ConfirmationPageProps) => {
   };
 
   return (
-    <div className="container mx-auto p-5">
-      <h1 className="font-semibold text-xl text-primaryDarker">Sua viagem</h1>
+    <Suspense>
+      <div className="container mx-auto p-5">
+        <h1 className="font-semibold text-xl text-primaryDarker">Sua viagem</h1>
 
-      <div className="flex flex-col p-5 mt-5 border border-solid border-grayLighter shadow-lg rounded-lg">
-        <div className="flex items-center gap-3 pb-5 border-b border-solid border-grayLighter">
-          <Image
-            src={trip.coverImage}
-            alt={trip.name}
-            height={0}
-            width={0}
-            sizes="100vw"
-            className="h-[106px] w-[124px] object-cover rounded-lg"
-          />
+        <div className="flex flex-col p-5 mt-5 border border-solid border-grayLighter shadow-lg rounded-lg">
+          <div className="flex items-center gap-3 pb-5 border-b border-solid border-grayLighter">
+            <Image
+              src={trip.coverImage}
+              alt={trip.name}
+              height={0}
+              width={0}
+              sizes="100vw"
+              className="h-[106px] w-[124px] object-cover rounded-lg"
+            />
 
-          <div className="flex flex-col">
-            <h2 className="text-xl text-primaryDarker font-semibold">
-              {trip.name}
-            </h2>
-            <div className="flex items-center gap-1">
-              <ReactCountryFlag countryCode={trip.countryCode} svg />
-              <p className="text-xs text-primaryGray underline">
-                {trip.location}
-              </p>
+            <div className="flex flex-col">
+              <h2 className="text-xl text-primaryDarker font-semibold">
+                {trip.name}
+              </h2>
+              <div className="flex items-center gap-1">
+                <ReactCountryFlag countryCode={trip.countryCode} svg />
+                <p className="text-xs text-primaryGray underline">
+                  {trip.location}
+                </p>
+              </div>
             </div>
+          </div>
+
+          <h3 className="font-semibold text-lg text-primaryDarker mt-3">
+            Informações sobre o preço
+          </h3>
+
+          <div className="flex justify-between mt-1">
+            <p className="text-primaryDarker">Total:</p>
+            <p className="font-medium text-primaryDarker">
+              R$ {totalPrice.toFixed(2)}
+            </p>
           </div>
         </div>
 
-        <h3 className="font-semibold text-lg text-primaryDarker mt-3">
-          Informações sobre o preço
-        </h3>
+        <div className="flex flex-col mt-5 text-primaryDarker">
+          <h3 className="font-semibold">Data</h3>
+          <div className="flex items-center gap-1 mt-1">
+            <p>{format(startDate, "dd 'de' MMMM", { locale: ptBR })}</p>
+            {" - "}
+            <p>{format(endDate, "dd 'de' MMMM", { locale: ptBR })}</p>
+          </div>
 
-        <div className="flex justify-between mt-1">
-          <p className="text-primaryDarker">Total:</p>
-          <p className="font-medium text-primaryDarker">
-            R$ {totalPrice.toFixed(2)}
-          </p>
+          <h3 className="font-semibold mt-5">Hóspedes</h3>
+          <p>{guests} hóspedes</p>
+
+          <Button className="mt-5" onClick={handleBuyClick}>
+            Finalizar Compra
+          </Button>
         </div>
       </div>
-
-      <div className="flex flex-col mt-5 text-primaryDarker">
-        <h3 className="font-semibold">Data</h3>
-        <div className="flex items-center gap-1 mt-1">
-          <p>{format(startDate, "dd 'de' MMMM", { locale: ptBR })}</p>
-          {" - "}
-          <p>{format(endDate, "dd 'de' MMMM", { locale: ptBR })}</p>
-        </div>
-
-        <h3 className="font-semibold mt-5">Hóspedes</h3>
-        <p>{guests} hóspedes</p>
-
-        <Button className="mt-5" onClick={handleBuyClick}>
-          Finalizar Compra
-        </Button>
-      </div>
-    </div>
+    </Suspense>
   );
 };
 
