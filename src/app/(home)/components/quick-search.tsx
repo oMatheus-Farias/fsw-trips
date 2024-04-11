@@ -12,7 +12,7 @@ const QuickSearch = () => {
         <div className="h-[1px] w-full bg-grayLighter"></div>
       </div>
 
-      <div className="flex w-full justify-between mt-4">
+      <div className="flex w-full justify-between mt-5 lg:justify-center lg:gap-40 lg:mt-10">
         <Link href="/trips/search?text=hotel">
           <div className="flex flex-col items-center">
             <Image
@@ -24,7 +24,7 @@ const QuickSearch = () => {
               className="h-9 w-9"
             />
 
-            <p className="text-sm text-primaryGray">Hotéis</p>
+            <p className="text-sm lg:text-base text-primaryGray">Hotéis</p>
           </div>
         </Link>
 
@@ -39,7 +39,7 @@ const QuickSearch = () => {
               className="h-9 w-9"
             />
 
-            <p className="text-sm text-primaryGray">Fazendas</p>
+            <p className="text-sm lg:text-base text-primaryGray">Fazendas</p>
           </div>
         </Link>
 
@@ -54,7 +54,7 @@ const QuickSearch = () => {
               className="h-9 w-9"
             />
 
-            <p className="text-sm text-primaryGray">Chalés</p>
+            <p className="text-sm lg:text-base text-primaryGray">Chalés</p>
           </div>
         </Link>
 
@@ -69,7 +69,7 @@ const QuickSearch = () => {
               className="h-9 w-9"
             />
 
-            <p className="text-sm text-primaryGray">Pousadas</p>
+            <p className="text-sm lg:text-base text-primaryGray">Pousadas</p>
           </div>
         </Link>
       </div>
