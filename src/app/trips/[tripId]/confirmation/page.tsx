@@ -100,7 +100,7 @@ const ConfirmationPage = ({ params }: ConfirmationPageProps) => {
 
   return (
     <Suspense>
-      <div className="container mx-auto p-5">
+      <div className="container mx-auto p-5 lg:max-w-[600px]">
         <h1 className="font-semibold text-xl text-primaryDarker">Sua viagem</h1>
 
         <div className="flex flex-col p-5 mt-5 border border-solid border-grayLighter shadow-lg rounded-lg">
