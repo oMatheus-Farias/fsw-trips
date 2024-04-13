@@ -43,12 +43,12 @@ const MyTrips = () => {
       </h1>
 
       {reservations.length <= 0 ? (
-        <div className="flex flex-col items-center mt-5 gap-5">
+        <div className="flex flex-col items-center mt-5 gap-5 lg:max-w-[400px] lg:mx-auto">
           <p className="text-md text-primaryDarker font-medium">
             Nenhuma reserva encontrada!
           </p>
 
-          <Link href="/" className="w-full">
+          <Link href="/" className="w-full lg:mt-5">
             <Button className="w-full">Fazer Reserva</Button>
           </Link>
         </div>

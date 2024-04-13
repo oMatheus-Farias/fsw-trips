@@ -23,7 +23,7 @@ const Header = () => {
   };
 
   return (
-    <header className="container mx-auto px-5 min-h-[93px] flex items-center justify-between">
+    <header className="container mx-auto px-5 min-h-[93px] flex items-center justify-between lg:border-b border-grayLighter">
       <Link href="/">
         <Image
           src="/logo.svg"
